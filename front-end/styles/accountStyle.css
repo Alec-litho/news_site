@@ -1,0 +1,126 @@
+.account {
+    width: 100vw;
+    height: 100vh;
+}
+.sidebar {
+    z-index: 100;
+    transition: .3s;
+    position: absolute;
+    top: 70px;
+    left: -200px;
+    padding: 10px 10px;
+    width: 250px;
+    height: 925px;
+    background-color: rgb(45, 99, 199);
+}
+
+.sidebar.show {
+    left: 0;
+}
+
+.icon-acc {
+    width: 20px;
+    color: rgb(184, 184, 184);
+    margin: 0 20px 0px 0;
+}
+.hover, .cell {
+    display: flex; 
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 20px;
+    height: 50px;
+}
+.hover .icon-acc, .hover h6 {
+    color: white;
+}
+
+.arrow {
+    color: rgb(147, 190, 255);
+    cursor: pointer;
+    position: absolute;
+    left: 220px;
+    width: 30px;
+}
+h6 {
+    color: rgb(211, 211, 211);
+    letter-spacing: 1px;
+    margin-bottom: 0;
+}
+.mainContent{
+    margin: 100px 250px;
+    width: 70%;
+    height: 900px;
+    background-color: white;
+}
+
+.subscriptions{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 103%;
+    height: 100px;
+    position: relative;
+    left: -10px;
+    background-color: rgb(243, 243, 243);
+}
+
+.header {
+    padding: 10px 0 10px 0;
+    border-bottom: 1px solid  rgb(230, 229, 229);
+}
+.header img {
+    border-radius: 100%;
+    width: 100px;
+}
+.info {
+    display: flex;
+    gap: 20px;
+    color: gray;
+    margin: 10px 0 10px 0;
+
+}
+.channel {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: linear-gradient(90deg, rgba(2, 0, 36, 0.541), rgb(50, 115, 172));
+
+    width: 100px;
+    height: 100px;
+    background-color: rgb(50, 115, 172);
+}
+.readLater {
+    position: relative;
+    margin: 30px 0 10px 0;
+    width: 100%;
+    height: 100%;
+}
+.readLater h5 {
+    padding: 10px;
+    z-index: 100;
+    color: rgb(228, 228, 228);
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.rl-block {
+    width: 200px;
+    height: 150px;
+    position: relative;
+}
+.readLater p{
+    font-size: 10px;
+    width: 50px;
+    position: absolute;
+    top: 15px;
+    left: 140px;
+    text-align: end;
+    color: rgb(228, 228, 228);
+    z-index: 10;
+}
+.rl-img {
+    width: 100%;
+    filter: blur(3px);
+}

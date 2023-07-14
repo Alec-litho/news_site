@@ -1,0 +1,98 @@
+.profile {
+
+    background-color: white;
+}
+.postInfo {
+    display: flex;
+    gap: 25px;
+}
+.categoryTag {
+    border-radius: 10px;
+    color: red;
+    letter-spacing: 1px;
+    padding: 3px 5px;
+    background-color: rgb(224, 190, 190);
+}
+.footbalNews {
+    height: 600px;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+}
+.footbalNews::-webkit-scrollbar {
+    display: none;
+  }
+.saveToPocket{
+    display: flex;
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    width: 150px;
+    height: 30px;
+    border: 1px solid rgb(98, 145, 72);
+    border-radius: 20px;
+    background-color: white;
+    color: rgb(98, 145, 72);
+    font-size: 13px;
+}
+.saveToPocket:hover {
+    border: 1px solid rgb(98, 145, 72);
+    background-color: rgba(88, 146, 56, 0.096);
+    color: rgb(98, 145, 72);
+}
+.newsBlock {
+    background-color: white;
+}
+.play {
+    cursor: pointer;
+    position: absolute;
+    top: 65px;
+    left: 130px;
+    width: 40px;
+    height: 40px;
+}
+.newsBlockLink {
+    color: rgb(14, 14, 14);
+    font-size: 24px;
+    width: 360px;
+    height: 70px;
+    overflow: hidden;
+    text-decoration: none;
+}
+.date {
+    color: rgb(122, 122, 122);
+}
+
+.leftContainer, .rightContainer {
+    height: 600px;
+    position: sticky;
+    top: 100px;
+}
+.topicContainer {
+    width: 200px;
+    height: 400px;
+    background-color: white;
+}
+.category {
+    background-color: white;
+    width: 100%;
+    height: 150px;
+    display: inline-block;
+    
+}
+.chooseBTN {
+
+    align-self: center;
+    transition: .2s;
+    cursor: pointer;
+    text-decoration: none;
+    color: rgb(104, 104, 104);
+    height: 35px;
+    border: 1px solid rgba(61, 102, 189, 0.534);
+    border-radius: 13px;
+    margin: 0 5px 6px 0
+}
+.chooseBTN:hover, .chooseBTN.curr {
+    color: rgb(61, 101, 189);
+    background-color: rgba(75, 123, 226, 0.199);
+    border: 1px solid rgba(75, 123, 226, 0.199);
+}
