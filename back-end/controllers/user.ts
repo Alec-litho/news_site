@@ -37,7 +37,7 @@ const register = async(req: express.Request, res:express.Response ) => {
 }
 
 const login = async(req: express.Request, res:express.Response ) => {
-    try {
+    try { 
         const {password, email} = req.body;
         let user:UserType|null = await UserModel.findOne({email})
         if(!user) return res.send(`User you were looking for wasn't found. Maybe you made mistake in email adress field`)

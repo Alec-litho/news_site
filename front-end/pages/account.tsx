@@ -13,7 +13,7 @@ import Edit from '../public/svg_icons/Edit'
 export default function Account() {
   let [sidebarStatus, setSidebar] = useState(false)
   let [route, setRoute] = useState('Profile')
-  console.log(route);
+
   
   let sidebar = useRef<HTMLDivElement>(null)
 
