@@ -5,7 +5,7 @@ export default function ReadNews() {
     let [data, setData] = useState({title: '', image_url: '', content: ''})
 
     console.log(data);
-    useEffect(_ => {
+    useEffect(() => {
         axios.get("https://api.jsonbin.io/v3/b/6429b837ebd26539d0a31912", {
             headers: {
                 "X-Master-Key":"$2b$10$y3p8j1CGw2n5ZUmWh4kE9OW8R.RqoGXrYo7Q7tlS2mAPj5SKqu.o2"
@@ -21,10 +21,10 @@ export default function ReadNews() {
     return (
         <>
             <Container className="bg-white d-grid background-color-white mt-5">
-               <h1 className="my-5">{data.titleArticle}</h1>
+               {/* <h1 className="my-5">{data.titleArticle}</h1>
                <div className='d-flex w-100 justify-content-center'><img className='w-75 align-self-center mb-4' src={data.image}></img></div>
                <h2 className="mb-4">{data.contentArticle}</h2>
-               <h4 style={{"text-align":"justify"}}>{data.text}</h4>
+               <h4 style={{"text-align":"justify"}}>{data.text}</h4> */}
             </Container>
         </>
     )

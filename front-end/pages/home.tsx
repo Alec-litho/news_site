@@ -1,5 +1,4 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import '../styles/Home.css'
 import {Container, Row, Col} from "react-bootstrap"
 import NewsToolsComponent from '../components/NewsToolsComponent'
 import CurrencyComponent from "../components/CurrencyComponent"

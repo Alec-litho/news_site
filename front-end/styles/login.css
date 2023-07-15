@@ -61,3 +61,7 @@
     background-color: rgb(60, 130, 236);
     color: rgb(255, 255, 255);
 }
+
+.error {
+    color: rgb(211, 79, 79);
+}

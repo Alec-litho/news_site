@@ -1,17 +1,22 @@
 'use client'
-import {useForm} from 'react-hook-form'
-import '../styles/login.css'
+import {useForm, SubmitHandler} from 'react-hook-form'
+import axios from 'axios';
+import { useAppDispatch, useAppSelector } from '../hooks/reduxCustomHooks';
+import { fetchData } from '../features/authSlice';
+type IForm = {
+    email: string,
+    password: string,
+};
 
+  
 function Login() {
+    const dispatch = useAppDispatch();
     const {
         register,
         formState: {errors},
         handleSubmit
-     } = useForm()
-     function onSubmit(data) {
-        console.log(data);
-        
-     }
+     } = useForm<IForm>();
+     const onSubmit: SubmitHandler<IForm> =  (data) => dispatch(fetchData(data));
 
     return (
         <div className='container'>
@@ -22,7 +27,8 @@ function Login() {
                     <svg className="input icon"></svg>
                     <label>
                         Email
-                    <input className="email" type="email" placeholder="write email" {...register('email',)}/>
+                    <input className="email" type="email" placeholder="write email" {...register('email', {required:true})}/>
+                    {errors.email && <p className='error'>email is required</p>}
                     </label>
                   
                 </div>
@@ -30,7 +36,8 @@ function Login() {
                     <svg className="input icon"></svg>
                     <label>
                         Password
-                    <input className="password" type="write password" placeholder="Password"/>
+                    <input className="password" type="write password" placeholder="Password" {...register("password", {required: true})}/>
+                    {errors.password && <p className='error'>password is required</p>}
                     </label>
                 </div>
                 

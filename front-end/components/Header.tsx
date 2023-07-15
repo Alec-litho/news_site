@@ -1,13 +1,12 @@
 'use client'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Nav, Container, FormControl, Navbar, NavbarBrand} from "react-bootstrap"
+import {Nav, Container, FormControl, Navbar, NavbarBrand} from "react-bootstrap";
 import Link from 'next/link';
-import Bell from '../public/svg_icons/Bell'
-import Search from '../public/svg_icons/Search'
-import '../styles/Header.css'
+import Bell from '../public/svg_icons/Bell';
+import Search from '../public/svg_icons/Search';
 import { fetchNews, setSearchInfo } from '../features/searchSlice';
-import {useEffect, useRef} from 'react'
-import useRefresh from '../hooks/useRefresh'
+import {useEffect, useRef} from 'react';
+import useRefresh from '../hooks/useRefresh';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxCustomHooks';
 
 export default function Header() {
@@ -15,7 +14,7 @@ export default function Header() {
     let dispatch = useAppDispatch()
     let inputSearch = useRef(null)
     let authData = useAppSelector(state => state.auth)
-    //n
+
     if(authData._id === null) return <div></div>
 
     return (

@@ -2,7 +2,7 @@ import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit'
 import axios from 'axios'
 
 
-const initialState: IsearchInfo = {
+const initialState: ISearch = {
     status: "unknown",
     news: [],
     articlesAmount: 1,
@@ -14,7 +14,7 @@ const searchSlice = createSlice({
     name: 'news',
     initialState,
     reducers: {
-       setSearchInfo: (state, action: PayloadAction<setSearchInfo>) => {
+       setSearchInfo: (state, action: PayloadAction<ISearch>) => {
         const {topic,sortBy } = action.payload
         state.topic = topic || "world"
         state.sortBy = sortBy || "popularity"
@@ -41,7 +41,7 @@ export const {setSearchInfo, setNews, resetNews} = searchSlice.actions
 export const fetchNews = createAsyncThunk(
     'fetch/fetchNews',
     async function(data:any) {
-        return await axios.get<newsItem>(`https://newsapi.org/v2/everything?q=${'nasa'}&sortBy=${'popularity'}&pageSize=${8}&apiKey=449afdc276d741c2a4f652246c2ec6cc`).then(res => res)
+        return await axios.get<newsItem>(`https://newsapi.org/v2/everything?q=${'nasa'}&sortBy=${'popularity'}&pageSize=${8}&apiKey=449afdc276d741c2a4f652246c2ec6cc`)
     }
 )
 

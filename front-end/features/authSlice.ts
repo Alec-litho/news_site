@@ -3,6 +3,7 @@ import axios from 'axios'
 
 
 const initialState:Iauth = {
+    status: "no info",
     _id: null,
     fullName: null,
     location: "not mentioned",
@@ -11,8 +12,8 @@ const initialState:Iauth = {
 }
 
 
-export const fetchData = createAsyncThunk('auth/fetchAuth', async(params) => {
-    const {data} = await axios.post('/login', params)
+export const fetchData = createAsyncThunk('auth/fetchAuth', async(params:ILogin) => {
+    const data:IUser = await axios.post('http://localhost:3001/login', params)
     return data
 })
 
@@ -22,6 +23,21 @@ const authSlice = createSlice({
     reducers: {
        
     },
+    extraReducers: (builder) => {
+        builder
+           .addCase(fetchData["fulfilled"], (state, action) => {
+            state._id = action.payload._id
+            state.fullName = action.payload.fullName
+            state.location = action.payload.location
+            state.age = action.payload.age
+            state.avatarUrl = action.payload.avatarUrl
+            state.status = "fulfilled"
+
+           })
+           .addCase(fetchData["rejected"], (state, action) => {
+            state.status = "rejected"
+           })
+    }
 })
 
 export default authSlice.reducer 
