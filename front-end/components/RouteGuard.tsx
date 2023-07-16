@@ -2,12 +2,14 @@
 import {useRouter} from 'next/router';
 import {useState, useEffect, ReactNode} from 'react';
 import React from 'react';
-import {useAppSelector } from '../hooks/reduxCustomHooks';
+
 
 export const RouterGuard:React.FC<{children:ReactNode}> = function({children}):ReactNode {
-    const user = useAppSelector(state => state.auth._id);
+    let token:string|null = null;
+    if(typeof window !== "undefined") token = localStorage.getItem("token")
+    
     const router = useRouter();
-    let [authorized, setAuthorized] = useState(false);
+    let [authorized, setAuthorized] = useState(token? true : false);
 
     useEffect(() => {
         if(!authorized) router.push("/login");
@@ -26,7 +28,7 @@ export const RouterGuard:React.FC<{children:ReactNode}> = function({children}):R
         const publicPath = ["/login"];
         const path = url.split("?")[0]
 
-        if(user===null && !publicPath.includes(path)) {
+        if(token===null) {
             setAuthorized(false);
             router.push({
                 pathname: "/login", 
@@ -34,7 +36,9 @@ export const RouterGuard:React.FC<{children:ReactNode}> = function({children}):R
             });
         } else {
             setAuthorized(true)
+            router.push("/home")
         }
     };
-    if(authorized) return children 
+    
+    if(authorized || typeof window === "undefined") return children 
 };

@@ -7,14 +7,12 @@ import { RouterGuard } from '../components/RouteGuard';
 import '../styles/Home.css'
 
 export default function App({Component, pageProps}) {
-
-    
     return (
-        <Provider store={store}>
+            <Provider store={store}>
             <RouterGuard>
                 <Header/>
                 <Component {...pageProps}></Component>
             </RouterGuard>
-        </Provider>
+            </Provider>
     )
 } 

@@ -6,7 +6,7 @@ import useGetNews from '../hooks/useGetNews';
 import { useState, useEffect, useRef } from 'react';
 
 export default function NewsFeedComponent() {
-    const newsInfo = useAppSelector(state => state.main)
+    const newsInfo:ISearch = useAppSelector(state => state.search)
     const [update, setUpdate] = useState<Boolean>(false)
     const dispatch = useAppDispatch()
     const getNews = useGetNews() /*getNews(set update function if needed)*/

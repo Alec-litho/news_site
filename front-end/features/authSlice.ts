@@ -3,7 +3,8 @@ import axios from 'axios'
 
 
 const initialState:Iauth = {
-    status: "no info",
+    status: "undefined",
+    token: "undefined",
     _id: null,
     fullName: null,
     location: "not mentioned",
@@ -13,8 +14,9 @@ const initialState:Iauth = {
 
 
 export const fetchData = createAsyncThunk('auth/fetchAuth', async(params:ILogin) => {
-    const data:IUser = await axios.post('http://localhost:3001/login', params)
-    return data
+    const data = await axios.post('http://localhost:3001/login', params)
+    const result:Iauth = {...data.data._doc, token: data.data.token}
+    return result
 })
 
 const authSlice = createSlice({
@@ -26,16 +28,19 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
            .addCase(fetchData["fulfilled"], (state, action) => {
+            localStorage.setItem("token",action.payload.token)
             state._id = action.payload._id
             state.fullName = action.payload.fullName
             state.location = action.payload.location
             state.age = action.payload.age
             state.avatarUrl = action.payload.avatarUrl
             state.status = "fulfilled"
+            state.token = action.payload.token
 
            })
            .addCase(fetchData["rejected"], (state, action) => {
             state.status = "rejected"
+
            })
     }
 })

@@ -8,6 +8,11 @@ type newsItem = {
     publishedAt: string;
     content: string;
 }
+type newsParameters = {
+    topic: string;
+    sortBy: string;
+    amount: number;
+}
 type setNewsVal = {
     articlesAmount: number;
     news: [];
@@ -27,6 +32,7 @@ interface ISearch {
 
 interface Iauth {
     status: string;
+    token: string;
     _id: string|null;
     fullName: string|null;
     location: string;

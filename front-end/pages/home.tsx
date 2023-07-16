@@ -11,14 +11,15 @@ import { InferGetStaticPropsType, GetStaticProps } from 'next';
 import axios from 'axios';
 
 export async function getServerSideProps() {
-    let currencies = await axios.get(`https://api.currencyapi.com/v3/latest?apikey=gdjpLeB7iAxKqzoURXTFH6RY4OSixlag5lBQKb6Z&currencies=EUR%2CUSD%2CCAD&base_currency=USD`)
-    let currenciesArr:Currencies[] = []
-    for (const currency in currencies.data.data) {
-        currenciesArr.push(currencies.data.data[currency])
-    }
-    let curs = JSON.stringify(currenciesArr)
-    return {props: {currencies: curs}}
+    // let currencies = await axios.get(`http://api.currencyapi.com/v3/latest?apikey=cur_live_nBRlzKBiDqzJCXAV40gWOfnC1BGU7FbRqJMhoIuE&currencies=EUR%2CUSD%2CCAD&base_currency=USD`)
+    // let currenciesArr:Currencies[] = []
+    // for (const currency in currencies.data.data) {
+    //     currenciesArr.push(currencies.data.data[currency])
+    // }
+    // let curs = JSON.stringify(currenciesArr)
+    // return {props: {currencies: curs}}
 }
+
 export default function Home({currencies}:InferGetStaticPropsType<typeof getServerSideProps>) {
     
     return (
