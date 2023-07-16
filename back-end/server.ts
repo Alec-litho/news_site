@@ -1,9 +1,7 @@
-
-import axios from "axios";
 import express from "express";
-import {register, login} from './controllers/user'
-import {getSportNews} from "./controllers/getSportNews"
-import fs from 'fs'
+import {register, login} from './controllers/user';
+import {getSportNews} from "./controllers/getSportNews";
+import {getNews} from "./controllers/news";
 import mongoose from 'mongoose'
 import bodyParser from "body-parser";
 import cors from 'cors'
@@ -22,7 +20,10 @@ app.post('/register', bodyParser.json(), register)
 app.post('/login', bodyParser.json(), login)
 //----------------Authtication--------------------------------
 
-//---------------
+//---------------News-----------------------------------------
+app.post("/getNews", getNews)
+
+//---------------News-----------------------------------------
 app.get('/getsportnews', getSportNews)
 
 

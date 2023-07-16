@@ -6,7 +6,7 @@ const initialState: ISearch = {
     status: "unknown",
     news: [],
     articlesAmount: 1,
-    topic: 'world',
+    topic: 'world', 
     sortBy: "popularity"
 }
 
@@ -40,8 +40,8 @@ export const {setSearchInfo, setNews, resetNews} = searchSlice.actions
 
 export const fetchNews = createAsyncThunk(
     'fetch/fetchNews',
-    async function(data:any) {
-        return await axios.get<newsItem>(`https://newsapi.org/v2/everything?q=${'nasa'}&sortBy=${'popularity'}&pageSize=${8}&apiKey=449afdc276d741c2a4f652246c2ec6cc`)
+    async function(data:newsParameters) {
+        return await axios.post<newsItem>("http://localhost:3001/getNews", {topic: data.topic, sortBy: data.sortBy, amount: data.amount})
     }
 )
 

@@ -1,12 +1,11 @@
 "use client"
 import axios from 'axios'
-import { useDispatch, useSelector } from "react-redux"
 import {setNews} from "../features/searchSlice"
 import { useAppDispatch, useAppSelector } from './reduxCustomHooks';
 
 export default function useGetNews():()=> void {
     const dispatch = useAppDispatch()
-    let newsInfo = useAppSelector(state => state.main)
+    let newsInfo:ISearch = useAppSelector(state => state.search)
     console.log(newsInfo);
     
     let newValForArticles:number = newsInfo.articlesAmount

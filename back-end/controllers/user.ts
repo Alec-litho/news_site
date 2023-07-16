@@ -32,7 +32,7 @@ const register = async(req: express.Request, res:express.Response ) => {
         res.status(200).json({token})
     } catch (error) {
         res.send(error)
-        
+         
     }
 }
 
