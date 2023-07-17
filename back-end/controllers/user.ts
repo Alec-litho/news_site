@@ -64,7 +64,13 @@ const login = async(req: express.Request, res:express.Response ) => {
   
 }
 
+const getUser = async(req: express.Request, res:express.Response ) => {
+    const id = req.body._id;
+    const result = await UserModel.findOne()
+}
+
 export {
     register,
-    login
+    login,
+    getUser
 }

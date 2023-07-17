@@ -8,14 +8,14 @@ type newsItem = {
     publishedAt: string;
     content: string;
 }
-type newsParameters = {
+type InewsParameters = {
     topic: string;
     sortBy: string;
     amount: number;
 }
 type setNewsVal = {
     articlesAmount: number;
-    news: [];
+    news: newsItem[];
 }
 type setSearchInfo = {
     topic:  string;
@@ -23,7 +23,7 @@ type setSearchInfo = {
 }
 interface ISearch {
     status: string;
-    news: Array<newsItem>;
+    news: newsItem[];
     articlesAmount: number;
     topic: string;
     sortBy: string;

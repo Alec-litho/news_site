@@ -18,6 +18,11 @@ export const fetchData = createAsyncThunk('auth/fetchAuth', async(params:ILogin)
     const result:Iauth = {...data.data._doc, token: data.data.token}
     return result
 })
+export const getUser = createAsyncThunk("auth/getUserAuth", async({_id, token}:{_id:string,token:string}) => {
+    const data = await axios.post('http://localhost:3001/getUser', {_id,token})
+    const result:Iauth = {...data.data._doc}
+    return result
+})
 
 const authSlice = createSlice({
     name: 'news',
@@ -28,7 +33,8 @@ const authSlice = createSlice({
     extraReducers: (builder) => {
         builder
            .addCase(fetchData["fulfilled"], (state, action) => {
-            localStorage.setItem("token",action.payload.token)
+            sessionStorage.setItem("token",action.payload.token)
+            sessionStorage.setItem("_id", JSON.stringify(action.payload._id))
             state._id = action.payload._id
             state.fullName = action.payload.fullName
             state.location = action.payload.location
@@ -41,6 +47,15 @@ const authSlice = createSlice({
            .addCase(fetchData["rejected"], (state, action) => {
             state.status = "rejected"
 
+           })
+           .addCase(getUser["fulfilled"], (state, action) => {//сделать рефакторинг чтобы не повторяться
+            state._id = action.payload._id
+            state.fullName = action.payload.fullName
+            state.location = action.payload.location
+            state.age = action.payload.age
+            state.avatarUrl = action.payload.avatarUrl
+            state.status = "fulfilled"
+            state.token = action.payload.token
            })
     }
 })
