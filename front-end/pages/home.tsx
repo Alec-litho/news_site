@@ -18,6 +18,7 @@ export async function getServerSideProps() {
     // }
     // let curs = JSON.stringify(currenciesArr)
     // return {props: {currencies: curs}}
+    return {props: {currencies: "currencies"}}
 }
 
 export default function Home({currencies}:InferGetStaticPropsType<typeof getServerSideProps>) {

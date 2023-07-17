@@ -11,12 +11,18 @@ export default function NewsFeedComponent() {
     const dispatch = useAppDispatch()
     const getNews = useGetNews() /*getNews(set update function if needed)*/
 
+    function getNewsOnScroll() {//load more news when user gets to the bottom of the page
+        // if(window.innerHeight + window.pageYOffset >= (document.body.offsetHeight-1)) getNews()
+        console.log(window.innerHeight + window.scrollY, document.body.offsetHeight-1);
+        
+    }
     useEffect(() => {
+        console.log('w');
+        
         if(newsInfo.news.length >= 100) dispatch(resetNews())
-        window.onscroll = function() {//load more news when user gets to the bottom of the page
-            if(window.innerHeight + window.pageYOffset >= (document.body.offsetHeight-1)) getNews()
-        }
+        window.addEventListener("scroll", getNewsOnScroll)
         getNews()
+        return () => window.removeEventListener("scroll", getNewsOnScroll)
     }, [])
   
 

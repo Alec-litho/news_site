@@ -3,11 +3,9 @@ import { useEffect, useState } from 'react';
 
 export default function HeadLinesComponent() {
     let [footballNews, setFootballNews] = useState([])
-    console.log(footballNews);
     useEffect(() => {
         let allMatches = []
         axios.get('http://localhost:3001/getsportnews').then(res => {
-            console.log(res);
             res.data.map(match => {
                 let matchBlock = { "homeTeamName": match.homeTeam.shortName, "homeTeamLogo": match.homeTeam.crest, "awayTeamName": match.awayTeam.shortName, "awayTeamLogo": match.awayTeam.crest, "scoreHomeTeam": Math.floor(Math.random() * (10 - 0 + 1) + 0), "scoreAwayTeam": Math.floor(Math.random() * (10 - 0 + 1) + 0) }
                 allMatches.push(matchBlock)
