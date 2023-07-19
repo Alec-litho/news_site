@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Container} from "react-bootstrap"
-import '../styles/accountStyle.css'
 import {useState, useRef} from 'react'
 import ArrowRight from '../public/svg_icons/ArrowRight'
 import ArrowLeft from '../public/svg_icons/ArrowLeft'

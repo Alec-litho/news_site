@@ -3,6 +3,7 @@ import axios from 'axios'
 
 
 const initialState:Iauth = {
+    auth: false,
     status: "undefined",
     token: "undefined",
     _id: null,
@@ -15,11 +16,18 @@ const initialState:Iauth = {
 
 export const fetchData = createAsyncThunk('auth/fetchAuth', async(params:ILogin) => {
     const data = await axios.post('http://localhost:3001/login', params)
+    console.log('fetchdata');
+    
     const result:Iauth = {...data.data._doc, token: data.data.token}
     return result
 })
 export const getUser = createAsyncThunk("auth/getUserAuth", async({_id, token}:{_id:string,token:string}) => {
-    const data = await axios.post('http://localhost:3001/getUser', {_id,token})
+    const data = await axios.post('http://localhost:3001/getUser', _id, {
+        headers: {
+            'content-type': 'text/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
     const result:Iauth = {...data.data._doc}
     return result
 })

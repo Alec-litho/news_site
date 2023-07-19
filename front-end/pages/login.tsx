@@ -1,8 +1,8 @@
 'use client'
 import {useForm, SubmitHandler} from 'react-hook-form'
-import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxCustomHooks';
 import { fetchData } from '../features/authSlice';
+import router from "next/router";
 type IForm = {
     email: string,
     password: string,
@@ -11,12 +11,15 @@ type IForm = {
 
 function Login() {
     const dispatch = useAppDispatch();
+    
     const {
         register,
         formState: {errors},
         handleSubmit
      } = useForm<IForm>();
-     const onSubmit: SubmitHandler<IForm> =  (data) => dispatch(fetchData(data));
+     const onSubmit: SubmitHandler<IForm> =  (data) => {
+        dispatch(fetchData(data)).then(() => router.push("home"))
+    }
 
     return (
         <div className='container'>

@@ -53,6 +53,7 @@ const login = async(req: express.Request, res:express.Response ) => {
             expiresIn: '30d'
         });
         const {...userData} = user;
+        console.log({...userData});
         
         res.json({
             ...userData,
@@ -65,8 +66,11 @@ const login = async(req: express.Request, res:express.Response ) => {
 }
 
 const getUser = async(req: express.Request, res:express.Response ) => {
-    const id = req.body._id;
-    const result = await UserModel.findOne()
+    const _id = req.body._id;
+    const result = await UserModel.findOne({_id});
+    const {...userData} = result;
+    res.json({...userData})
+    
 }
 
 export {
