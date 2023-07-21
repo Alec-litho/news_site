@@ -23,12 +23,7 @@ export const RouterGuard:React.FC<{children:ReactNode}> = function({children}):R
 
     useEffect(() => {
         checkAuth(router.asPath)
-        router.events.on("routeChangeStart", setAuthFalse);
-        router.events.on("routeChangeComplete", checkAuth);
-        return () => {
-            router.events.off("routeChangeStart", () => setAuthFalse);
-            router.events.off("routeChangeComplete", checkAuth);
-        };
+
     }, []);
 
     function checkAuth(url:string):JSX.Element|void {
