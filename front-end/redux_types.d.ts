@@ -31,7 +31,7 @@ interface ISearch {
 
 
 interface Iauth {
-    auth: boolean
+    logedIn: boolean
     status: string;
     token: string;
     _id: string|null;

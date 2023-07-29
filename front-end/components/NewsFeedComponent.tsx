@@ -5,6 +5,7 @@ import { setSearchInfo, resetNews } from '../features/searchSlice';
 import useGetNews from '../hooks/useGetNews';
 import { useState, useEffect, useRef } from 'react';
 
+
 export default function NewsFeedComponent() {
     const newsInfo:ISearch = useAppSelector(state => state.search)
     const [update, setUpdate] = useState<Boolean>(false)

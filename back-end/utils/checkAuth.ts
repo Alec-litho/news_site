@@ -2,14 +2,15 @@
 import jwt from "jsonwebtoken";
 import express from "express";
 
-
-module.exports.checkAuth = (req: express.Request, res:express.Response ,next) => {
+const checkAuth = (req: express.Request, res:express.Response ,next) => {
     const token = (req.headers.authorization || '').replace(/Bearer\s?/, '')
+    
     if(token) {
         try {
             const decoded = jwt.verify(token, 'secret')
-            req.body._id = decoded._id
-            next()
+            console.log(req.body._id,decoded._id);
+            
+            if(req.body._id === decoded._id) next()
         } catch (error) {
             return res.status(403).json({
                 message: "Not allowed"
@@ -20,4 +21,9 @@ module.exports.checkAuth = (req: express.Request, res:express.Response ,next) =>
             message: "Not allowed 404"
         })
     }
+}
+
+
+export {
+    checkAuth
 }

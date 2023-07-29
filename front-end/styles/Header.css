@@ -9,7 +9,7 @@
 }
 .icon {
     width: 20px;
-    height: 20px;
+    height: 20px; 
 }
 .nav {
     width: 500px;
@@ -58,11 +58,11 @@ svg {
 .search:hover {
     color: rgb(45, 99, 199);
 }
-.search {
+/* .search {
     cursor: pointer;
     box-sizing: content-box;
     transition: .2s;
     padding: 5px;
     width: 30px;
     height: 30px;
-}
+} */

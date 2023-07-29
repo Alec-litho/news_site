@@ -8,7 +8,7 @@ import { fetchNews, setSearchInfo } from '../features/searchSlice';
 import {useEffect, useRef} from 'react';
 import useRefresh from '../hooks/useRefresh';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxCustomHooks';
-
+ 
 export default function Header() {
     let refresh = useRefresh()
     let dispatch = useAppDispatch()
@@ -39,7 +39,7 @@ export default function Header() {
                     <Nav className='nav-search d-flex'>
                         <Bell className='icon'/>
                         <FormControl ref={inputSearch}></FormControl>
-                        <Search className='search' onClick={() => dispatch(fetchNews('data'))}></Search>
+                        <Search className='icon_A' onClick={() =>console.log()/* dispatch(fetchNews)*/}></Search>
                         
                     </Nav>
                 </Navbar.Collapse>

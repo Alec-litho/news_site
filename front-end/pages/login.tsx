@@ -1,4 +1,4 @@
-'use client'
+
 import {useForm, SubmitHandler} from 'react-hook-form'
 import { useAppDispatch, useAppSelector } from '../hooks/reduxCustomHooks';
 import { fetchData } from '../features/authSlice';
@@ -8,7 +8,6 @@ type IForm = {
     password: string,
 };
 
-
 function Login() {
     const dispatch = useAppDispatch();
     
@@ -17,13 +16,14 @@ function Login() {
         formState: {errors},
         handleSubmit
      } = useForm<IForm>();
+
      const onSubmit: SubmitHandler<IForm> =  (data) => {
         dispatch(fetchData(data)).then(() => router.push("home"))
     }
 
     return (
         <div className='container'>
-            <form className="model" onSubmit={handleSubmit(onSubmit)}>
+            <form method="post" className="model" onSubmit={handleSubmit(onSubmit)}>
             <img src="https://i.ibb.co/Bqm8N2r/default-avatar-profile-trendy-style-social-media-user-icon-187599373.jpg" className='profile-picture'></img>
             <div className="inputContainer">
                 <div className="d-flex">
@@ -52,7 +52,7 @@ function Login() {
                 </div>
                 <a href="#" className='forgotPass'>Forgot password?</a>
             </div>
-            <input className='login' type="submit"></input>
+            <input className='login' type="submit" ></input>
             </form>
         </div>
     )

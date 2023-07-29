@@ -3,7 +3,7 @@ import axios from 'axios'
 
 
 const initialState:Iauth = {
-    auth: false,
+    logedIn: false,
     status: "undefined",
     token: "undefined",
     _id: null,
@@ -22,12 +22,16 @@ export const fetchData = createAsyncThunk('auth/fetchAuth', async(params:ILogin)
     return result
 })
 export const getUser = createAsyncThunk("auth/getUserAuth", async({_id, token}:{_id:string,token:string}) => {
-    const data = await axios.post('http://localhost:3001/getUser', _id, {
+    console.log(_id, token);
+    
+    const data = await axios.post('http://localhost:3001/getUser', {"_id": _id.split(' ').join('')}, {
         headers: {
             'content-type': 'text/json',
             'Authorization': `Bearer ${token}`
         }
+        
     })
+    console.log(token)
     const result:Iauth = {...data.data._doc}
     return result
 })
@@ -36,20 +40,23 @@ const authSlice = createSlice({
     name: 'news',
     initialState,
     reducers: {
-       
+        setLogedIn(state,action) {
+            state.logedIn = true
+        }
     },
     extraReducers: (builder) => {
         builder
            .addCase(fetchData["fulfilled"], (state, action) => {
-            sessionStorage.setItem("token",action.payload.token)
-            sessionStorage.setItem("_id", JSON.stringify(action.payload._id))
-            state._id = action.payload._id
-            state.fullName = action.payload.fullName
-            state.location = action.payload.location
-            state.age = action.payload.age
-            state.avatarUrl = action.payload.avatarUrl
-            state.status = "fulfilled"
-            state.token = action.payload.token
+            document.cookie = `_id=${action.payload._id}; path=/`;
+            document.cookie = `token=${action.payload.token}; path=/`;
+            state.logedIn = true;
+            state._id = action.payload._id;
+            state.fullName = action.payload.fullName;
+            state.location = action.payload.location;
+            state.age = action.payload.age;
+            state.avatarUrl = action.payload.avatarUrl;
+            state.status = "fulfilled";
+            state.token = action.payload.token;
 
            })
            .addCase(fetchData["rejected"], (state, action) => {
@@ -66,8 +73,8 @@ const authSlice = createSlice({
             state.token = action.payload.token
            })
     }
-})
+});
 
 export default authSlice.reducer 
-// export const { = authSlice.actions
+export const {setLogedIn} = authSlice.actions
 

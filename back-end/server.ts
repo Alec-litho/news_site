@@ -5,6 +5,7 @@ import {getNews} from "./controllers/news";
 import mongoose from 'mongoose'
 import bodyParser from "body-parser";
 import cors from 'cors'
+import {checkAuth} from './utils/checkAuth'
 let app = express()
 let {MONGO_URI, API_PORT} = process.env
 app.use(cors());
@@ -18,7 +19,7 @@ mongoose
 //----------------Authtication--------------------------------
 app.post('/register', bodyParser.json(), register)
 app.post('/login', bodyParser.json(), login)
-app.post('/getUser', bodyParser.json(), getUser)
+app.post('/getUser', checkAuth, bodyParser.json(), getUser)
 //----------------Authtication--------------------------------
 
 //---------------News-----------------------------------------

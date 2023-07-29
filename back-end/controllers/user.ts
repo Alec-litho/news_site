@@ -69,6 +69,8 @@ const getUser = async(req: express.Request, res:express.Response ) => {
     const _id = req.body._id;
     const result = await UserModel.findOne({_id});
     const {...userData} = result;
+    console.log(req.body);
+    
     res.json({...userData})
     
 }

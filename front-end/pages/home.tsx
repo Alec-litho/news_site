@@ -8,7 +8,7 @@ import Header from '../components/Header';
 //server components//
 import HeadLinesComponent from '../components/server_components/HeadLinesComponent';
 import { InferGetStaticPropsType, GetStaticProps } from 'next';
-import axios from 'axios';
+import getUserInfo from '../helperFunctions/fetchUserInfo';
 
 export async function getServerSideProps() {
     // let currencies = await axios.get(`http://api.currencyapi.com/v3/latest?apikey=cur_live_nBRlzKBiDqzJCXAV40gWOfnC1BGU7FbRqJMhoIuE&currencies=EUR%2CUSD%2CCAD&base_currency=USD`)
@@ -17,12 +17,14 @@ export async function getServerSideProps() {
     //     currenciesArr.push(currencies.data.data[currency])
     // }
     // let curs = JSON.stringify(currenciesArr)
+    // console.log(curs);
+    
     // return {props: {currencies: curs}}
     return {props: {currencies: "currencies"}}
 }
 
 export default function Home({currencies}:InferGetStaticPropsType<typeof getServerSideProps>) {
-    
+    if(typeof window!=="undefined") getUserInfo()
     return (
         <>
         <Container className="pt-5">
