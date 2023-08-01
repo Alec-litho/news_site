@@ -8,12 +8,12 @@ const checkAuth = (req: express.Request, res:express.Response ,next) => {
     if(token) {
         try {
             const decoded = jwt.verify(token, 'secret')
-            console.log(req.body._id,decoded._id);
-            
-            if(req.body._id === decoded._id) next()
+            console.log(req.body);
+            req.body._id = decoded._id
+            next()
         } catch (error) {
             return res.status(403).json({
-                message: "Not allowed"
+                error
             })
         }
     }else {

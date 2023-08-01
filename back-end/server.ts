@@ -19,7 +19,7 @@ mongoose
 //----------------Authtication--------------------------------
 app.post('/register', bodyParser.json(), register)
 app.post('/login', bodyParser.json(), login)
-app.post('/getUser', checkAuth, bodyParser.json(), getUser)
+app.post('/getUser', bodyParser.json(), checkAuth, getUser)
 //----------------Authtication--------------------------------
 
 //---------------News-----------------------------------------

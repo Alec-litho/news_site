@@ -1,68 +1,79 @@
-
 .navbar {
     background-color: white;
-    z-index: 100;
+    height: 70px;
+    width: 100%;
 }
 .logo {
+    width: 17%;
+}
+.collapse {
+    width: 53%;
+}
+.nav-tools {
+    position: relative;
+    width: 30%;
+}
+
+.navigation {
+    width: 300px;
+}
+
+.link {
+    position: relative;
+    height: 100%;
+}
+.link a {
+    font-weight: bold;
+    font-size: 18px;
+}
+.link.active .line {
+    position: absolute;
+    top: 45px;
+    width: 100%;
+    border-bottom: 3px solid rgb(231, 105, 31);
+}
+.search-box {
+    outline: none;
+    width: 65%;
+    height: 35px;
+    background-color: rgb(236, 236, 236);
+    border: none;
+    border-radius: 4px;
+}
+.search-box::placeholder {
+    color: rgb(153, 153, 153);
+    padding-left: 50px;
+    font-size: 18px;
+    font-weight: 500;
+}
+.search-box::first-line {
+    padding-left: 50px;
+}
+.icon_A.bell {
+    cursor:pointer;
+}
+.icon_A.search {
+    fill: rgb(153, 153, 153);
+    position: absolute;
+    left: 70px;
+    height: 20px;
+    width: 20px;
+
+}
+.profile-picture {
+    cursor: pointer;
+    border-radius: 50%;
     width: 50px;
     height: 50px;
+    object-fit: cover;
 }
-.icon {
-    width: 20px;
-    height: 20px; 
-}
-.nav {
-    width: 500px;
+.profile-menu {
+    position: absolute;
+    z-index: 100;
+    top: 70px;
+    left: 200px;
+    width: 100px;
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    background-color: black;
 }
-.navlink {
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    align-items: center;
-    margin-right: 10px;
-    width: calc(100/400);
-}
-.navbar { 
-    padding: 0 20px;
-    width: 100%;
-    position: static;
-    top: 0;
-    left: 0;
-}
-.link {
-    text-decoration: none;
-    color: black;
-}
-.link:hover {
-    color: gray;
-}
-
-
-.collapse {
-    justify-content: flex-end;
-}
-
-svg {
-    color: #575757
-}
-.nav-search {
-    width: 250px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-}
-.search:hover {
-    color: rgb(45, 99, 199);
-}
-/* .search {
-    cursor: pointer;
-    box-sizing: content-box;
-    transition: .2s;
-    padding: 5px;
-    width: 30px;
-    height: 30px;
-} */
