@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Container, Row, Col} from "react-bootstrap"
-import NewsToolsComponent from '../components/NewsToolsComponent'
-import CurrencyComponent from "../components/CurrencyComponent"
-import NewsFeedComponent from '../components/NewsFeedComponent'
-import TopicsToolComponent from '../components/TopicsToolComponent'
-import Header from '../components/Header';
+import {Container, Row, Col} from "react-bootstrap";
+import NewsToolsComponent from '../components/NewsToolsComponent';
+import CurrencyComponent from "../components/CurrencyComponent";
+import NewsFeedComponent from '../components/NewsFeedComponent';
+import TopicsToolComponent from '../components/TopicsToolComponent';
+import {useAppSelector} from '../hooks/reduxCustomHooks'
 //server components//
 import HeadLinesComponent from '../components/server_components/HeadLinesComponent';
 import { InferGetStaticPropsType, GetStaticProps } from 'next';
@@ -24,7 +24,18 @@ export async function getServerSideProps() {
 }
 
 export default function Home({currencies}:InferGetStaticPropsType<typeof getServerSideProps>) {
-    if(typeof window!=="undefined") getUserInfo()
+    const userInfo = {fullName:"user",description:"...",avatarUrl: "https://i.ibb.co/Bqm8N2r/default-avatar-profile-trendy-style-social-media-user-icon-187599373.jpg",backgroundImg:"https://i.ibb.co/wrvWWtb/depositphotos-121012076-stock-illustration-blank-photo-icon.webp"}
+    if(typeof window!=="undefined") {
+        let userData = useAppSelector((state)=> state.auth)
+        getUserInfo().then((res) => {
+            userInfo.fullName = userData.fullName
+            userInfo.description = userData.description
+            userInfo.avatarUrl = userData.avatarUrl
+            userInfo.backgroundImg = userData.backgroundImg
+        })
+    }
+    console.log(userInfo);
+    
     return (
         <>
         <Container className="pt-5">

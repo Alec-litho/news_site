@@ -7,7 +7,7 @@ import express from 'express'
 const register = async(req: express.Request, res:express.Response ) => {
     try {
  
-        const {email, fullName, password, avatarUrl} = req.body
+        const {email, fullName, password} = req.body
         if(!(email && password && fullName)) {
             res.json({resp: 'not all fields were filled'})
         }
@@ -19,9 +19,11 @@ const register = async(req: express.Request, res:express.Response ) => {
             email: email.toLowerCase(),
             fullName,
             password: password,
-            avatarUrl,
+            avatarUrl: "https://i.ibb.co/Bqm8N2r/default-avatar-profile-trendy-style-social-media-user-icon-187599373.jpg",
             friends: 0,
             location: "not mentioned",
+            description: "...",
+            backgroundImg: "https://i.ibb.co/wrvWWtb/depositphotos-121012076-stock-illustration-blank-photo-icon.webp",
             age: 'not mentioned'
         })
         const user = doc.save()

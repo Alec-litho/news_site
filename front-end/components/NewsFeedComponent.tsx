@@ -18,7 +18,7 @@ export default function NewsFeedComponent() {
 
     function getNewsOnScroll() {//load more news when user gets to the bottom of the page
         // if(window.innerHeight + window.pageYOffset >= (document.body.offsetHeight-1)) getNews()
-        console.log(window.innerHeight + window.scrollY, document.body.offsetHeight-1);
+        // console.log(window.innerHeight + window.scrollY, document.body.offsetHeight-1);
         
     }
     useEffect(() => {

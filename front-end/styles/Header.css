@@ -1,7 +1,9 @@
 .navbar {
     background-color: white;
+    position: relative;
     height: 70px;
     width: 100%;
+    z-index: 100;
 }
 .logo {
     width: 17%;
@@ -11,6 +13,7 @@
 }
 .nav-tools {
     position: relative;
+    z-index: 101;
     width: 30%;
 }
 
@@ -67,13 +70,39 @@
     height: 50px;
     object-fit: cover;
 }
-.profile-menu {
-    position: absolute;
-    z-index: 100;
-    top: 70px;
-    left: 200px;
-    width: 100px;
-    display: flex;
+.sidebar-menu {
+    z-index: 99;
+    display: none;
     flex-direction: column;
-    background-color: black;
+    background-color: white;
+    transition: .3s;
+    position: absolute;
+    padding: 10px 5px;
+    width: 350px;
+}
+.sidebar-menu.show {
+    display:flex;
+    top: 100px;
+    left: 300px;
+}
+.sidebar-menu.show.active {
+    display: flex;
+    top: 60px;
+    left: 300px;
+}
+.menu-option {
+    padding-bottom: 5px;
+    display: flex;
+    align-items: center;
+
+}
+.menu-option:hover .icon_A {
+    fill: var(--icon-active);
+}
+.menu-option:hover h5 {
+    color: var(--icon-active);
+}
+.sidebar-menu .icon_A {
+    transition: .2s;
+    fill: rgb(116, 116, 116);
 }

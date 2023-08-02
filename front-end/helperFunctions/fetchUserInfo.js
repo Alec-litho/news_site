@@ -2,7 +2,7 @@
 import { useAppDispatch } from '../hooks/reduxCustomHooks';
 import { getUser } from '../features/authSlice';
 
-export default function getUserInfo() {
+export default async function getUserInfo() {
     const dispatch = useAppDispatch();
     const parameters = {};
     document.cookie.split(";").forEach((str) => {
@@ -12,7 +12,9 @@ export default function getUserInfo() {
     })
     if(parameters) {
         console.log(parameters);
-        
-        dispatch(getUser(parameters))
+        let promise = new Promise((resolve) => {
+            resolve(dispatch(getUser(parameters)))
+        })
+        return promise
     }
 }

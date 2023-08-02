@@ -10,6 +10,8 @@ const initialState:Iauth = {
     fullName: null,
     location: "not mentioned",
     age: "not mentioned",
+    description: "...",
+    backgroundImg: "https://i.ibb.co/wrvWWtb/depositphotos-121012076-stock-illustration-blank-photo-icon.webp",
     avatarUrl: "https://i.ibb.co/Bqm8N2r/default-avatar-profile-trendy-style-social-media-user-icon-187599373.jpg"
 }
 
