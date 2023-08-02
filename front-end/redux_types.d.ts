@@ -38,6 +38,8 @@ interface Iauth {
     fullName: string|null;
     location: string;
     age: string|number;
+    description: string;
+    backgroundImg: string;
     avatarUrl: string;
 }
 interface ILogin {
