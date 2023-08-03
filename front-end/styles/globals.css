@@ -1,6 +1,6 @@
 @import "bootstrap/dist/css/bootstrap.min.css";
 :root {
-  --icon-active: rgb(199, 89, 45);
+  --icon-active: #c7592d;
 }
 html,
 body {
