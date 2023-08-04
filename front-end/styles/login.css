@@ -1,6 +1,12 @@
 .right_container {
     background-color: rgb(228, 228, 228);
 }
+.active .right_container {
+    width: 30%;
+}
+.active .left_container {
+    width: 70%;
+}
 .left_container {
     background-image: url("https://i.ibb.co/N1xx8T0/1.jpg");
     height: 100vh;
@@ -12,25 +18,27 @@
     color: white;
 }
 
-.email_container svg, .password_container svg{
-    width: 20px;
-    height: 20px;
+.email_container svg, .password_container svg, .name_container svg, .repeat_password_container svg{
+    width: 24px;
+    height: 24px;
     position: absolute;
     left: 15px;
     top: 45px;
+    fill: rgb(124, 124, 124);
 }
 .inputContainer label {
     width: 100%;
 }
 .inputContainer input {
+    border-radius: 8px;
     outline: none;
     height: 65px;
     width: 100%;
     border: none;
 }
 
-.inputContainer input:focus label {
-    color: var(--icon-active);
+.inputContainer input:focus {
+    border: 1px solid var(--icon-active);
 }
 .inputContainer input::placeholder {
     padding-left: 40px;
@@ -58,7 +66,7 @@
 .line {
     width: 195px;
     height: 2px;
-    background-color: rgb(131, 131, 131);
+    background-color: var(--icon-active);
 }
 .icon {
     transition: .2s;
@@ -71,3 +79,10 @@
 
 }
 .create {color: var(--icon-active);}
+.border p {color: var(--icon-active);}
+.label.active svg {
+    fill: var(--icon-active);
+}
+.label.active .email, .label.active .name, .label.active .password {
+    border: 1px solid var(--icon-active);
+}

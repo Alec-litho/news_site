@@ -1,0 +1,23 @@
+.left_container_register {
+    background-image: url("https://i.ibb.co/NTNRrBk/background.jpg");
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.gender_container {
+    flex-direction: column;
+    width: 50%;
+}
+.gender_container input {
+    width: 20px;
+    height: 20px;
+}
+.additional_info {
+    height: 70px;
+}
+#birthday {
+    height: 45px;
+}
+.male, .female {accent-color: var(--icon-active);}
+.female { width: 100px;} 
+.male {width: 80px;}

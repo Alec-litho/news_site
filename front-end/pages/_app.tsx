@@ -7,13 +7,22 @@ import '../styles/accountStyle.css'
 import '../styles/Home.module.css'
 import '../styles/Header.css'
 import '../styles/globals.css'
+import '../styles/register.css'
+import Head from 'next/head';
+import Script from 'next/script'
 
 export default function App({Component, pageProps}) {
 
     return (
-            <Provider store={store}>
+        <>
+        <Head>
+            <title>News site</title>
+            <Script src="https://accounts.google.com/gsi/client" />
+        </Head>
+        <Provider store={store}>
                 <Header/>
                 <Component {...pageProps}></Component>
             </Provider>
+        </>
     )
 } 

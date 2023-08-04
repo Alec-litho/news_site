@@ -6,6 +6,7 @@ import { fetchData } from '../features/authSlice';
 import router from "next/router";
 import Email  from '../public/svg_icons/login/email' 
 import Lock  from '../public/svg_icons/login/lock' 
+import Link from 'next/link';
 type IForm = {
     email: string,
     password: string,
@@ -81,10 +82,10 @@ function Login() {
                     </div>
                 </div>
                 </div>
-                <div className='wrapper d-flex w-100 justify-content-center'>
+                <div className='wrapper d-flex w-100 justify-content-center mt-2'>
                     <div className='d-flex align-items-center'>
                         <h6 className='mb-0'>Don't have account?</h6>
-                        <a className="create">Create Account</a>
+                        <Link href="/register"><span className="create">Create Account</span></Link>
                     </div>
                 </div>
                 
