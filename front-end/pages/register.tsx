@@ -33,11 +33,6 @@ function Register() {
         dispatch(fetchData(data)).then(() => router.push("home"))
     }
 
-    useEffect(() => {
-        // axios.get("https://accounts.google.com/o/oauth2/v2/auth?scope=https%3A//www.googleapis.com/auth/drive.metadata.readonly&include_granted_scopes=true&response_type=token&client_id=1015608676012-0nddm7jredi2ecik5cd98ajqi8pn5jh4.apps.googleusercontent.com&redirect_uri=http://localhost:3000/home")
-        // .then(res => console.log(res)
-        
-    },[])
     function changeIconColor(element:HTMLLabelElement ) {
         console.log({...register});
         element.classList.add("active")
@@ -131,10 +126,15 @@ function Register() {
                 <div className='wrapper d-flex w-100 justify-content-center'>
                 <div className=' icons w-50  d-flex justify-content-between'>
                     <div className='icon'>
-                        <Image src={'/../public/vk.png'} alt="icon" width={50} height={50}/>
+                        <a role='button'>
+                           <Image src={'/../public/vk.png'} alt="icon" width={50} height={50}/>
+                        </a>
                     </div>
                     <div className='icon'>
-                        <Image src={'/../public/google.png'} alt="icon" width={40} height={40}/>
+                        <a href="http://localhost:3001/auth" >
+                            <Image src={'/../public/google.png'} alt="icon" width={40} height={40}/>
+                        </a>
+                        
                     </div>
                     <div className='icon'>
                         <Image src={'/../public/facebook.png'} alt="icon" width={50} height={50}/>

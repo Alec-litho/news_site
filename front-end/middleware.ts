@@ -7,7 +7,7 @@ export function middleware(req:NextRequest) {
     // const dispatch = useAppDispatch()
     let token = req.cookies.get("token")
     let _id = req.cookies.get("_id")
-    if(!req.cookies.has("token"))  return NextResponse.redirect(new URL('/login', req.url))
+    if(!req.cookies.has("_id"))  return NextResponse.redirect(new URL('/login', req.url))
 //     const parameters = {
 //         _id: JSON.stringify(_id),
 //         token: JSON.stringify(token)
