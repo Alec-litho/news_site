@@ -6,9 +6,10 @@ interface UserType  {
     fullName: string,
     password: string,
     avatarUrl: string,
-    friends: number,
+    friends: number, 
     location: string,
     age: number|string,
+    googleId: string
 }
 
 type newsItem = {
@@ -20,4 +21,12 @@ type newsItem = {
     urlToImage: string;
     publishedAt: string;
     content: string;
+}
+type googleData = {
+    sub: string
+    name: string
+    given_name: string
+    family_name: string
+    picture: string
+    locale: string
 }
