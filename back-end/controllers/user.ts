@@ -42,7 +42,7 @@ const login = async(req: express.Request, res:express.Response ) => {
     try { 
         const {password, email} = req.body;
         let user:UserType|null = await UserModel.findOne({email})
-        if(!user) return res.send(`User you were looking for wasn't found. Maybe you made mistake in email adress field`)
+        if(!user || user.googleId) return res.send(`User you were looking for wasn't found. Maybe you made mistake in email adress field`)
         const isValidPass = bcrypt.compare(password, user.password)
         if(!isValidPass) {
             return res.status(404).json({
@@ -69,11 +69,12 @@ const login = async(req: express.Request, res:express.Response ) => {
 
 const getUser = async(req: express.Request, res:express.Response ) => {
     const _id = req.body._id;
-    const result = await UserModel.findOne({_id});
+    const result = await UserModel.findById({_id});
     const {...userData} = result;
-    console.log(req.body);
-    
-    res.json({...userData})
+    console.log("result ----------->   ",result);
+    result===null? res.json(result) : res.json({userData});
+
+
     
 }
 

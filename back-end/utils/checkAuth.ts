@@ -17,9 +17,7 @@ const checkAuth = (req: express.Request, res:express.Response ,next) => {
             })
         }
     }else {
-        return res.status(404).json({
-            message: "Not allowed 404"
-        })
+        return res.status(404).json(undefined)
     }
 }
 

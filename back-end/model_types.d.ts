@@ -9,7 +9,7 @@ interface UserType  {
     friends: number, 
     location: string,
     age: number|string,
-    googleId: string
+    googleId?: string
 }
 
 type newsItem = {
@@ -30,3 +30,18 @@ type googleData = {
     picture: string
     locale: string
 }
+// type PassportUser = {
+//     $__: object
+//     $isNew: boolean
+//     _doc: UserType
+//     token: string
+// }
+
+
+declare namespace Express {
+      interface User {
+        token: string
+        _doc: UserType
+      }
+    }
+  

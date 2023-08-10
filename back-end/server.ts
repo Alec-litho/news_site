@@ -9,32 +9,41 @@ import {checkAuth} from './utils/checkAuth'
 import passport from "passport";
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import {UserModel} from "./models/userModel";
-import cookieParser from 'cookie-parser'
+import cookieParser from 'cookie-parser';
+import jwt from "jsonwebtoken";
+import {Request, Response} from "express";
+import session from "express-session";
+
 const CLIENT_ID = "1015608676012-0nddm7jredi2ecik5cd98ajqi8pn5jh4.apps.googleusercontent.com";
 const CLIENT_SECRET = "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";
 
 let app = express()
 let {MONGO_URI, API_PORT} = process.env
 app.use(cors());
-
+app.use(cookieParser())
+app.use(session({
+  secret: 'meow',
+  saveUninitialized: true,
+}))
+app.use(passport.authenticate('session'));
 mongoose
   .connect('mongodb+srv://opaltaco:eamV2B1PXGjNFX3y@cluster0.iyapupi.mongodb.net/NEWS_SITE?retryWrites=true&w=majority')
   .then(() => console.log('connected'))
   .catch((err) => console.log(err))
 
-  type User = {
-    id: string
-    username: string
-  }
+//----------------Authentication--------------------------------
+app.post('/register', bodyParser.json(), register)
+app.post('/login', bodyParser.json(), login)
+app.post('/getUser', bodyParser.json(),/* checkAuth,*/ getUser)
+//----------------Authentication--------------------------------
 
 //----------------Google OAuth-------------------------------//
 // app.use(express.static("public"))
-app.use(cookieParser())
-passport.serializeUser((user:User,done) => {
-  done(null, user.id);
+passport.serializeUser((user,done) => {
+  done(null, user);
 });
 passport.deserializeUser((id:string, done) => {
-  UserModel.findById(id, (err,user:UserType) => {
+  UserModel.findById(id, (err,user) => {
     done(err,user)
   });
 });
@@ -46,31 +55,42 @@ passport.use(new GoogleStrategy({
   userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
 },
 (accessToken, refreshToken, profile, done) => {
-  console.log(profile);
   UserModel.findOne({googleId: profile.id})
     .then((data) => {
       if(!data) {
         let user = new UserModel({
           googleId: profile.id,
-          fullName: profile._json.name
-          
+          fullName: profile._json.name,
+          email: profile._json.email,
+          password: "null",
+          location: "not mentioned",
+          age: "not mentioned",
+          friends: 0,
+          avatarUrl: profile._json.picture
         });
         user.save()
-        return done();
-      } else return done();
+      }
     })
-  
+    .then(async() => {
+      let user = await UserModel.findOne({googleId: profile.id})
+      const token = jwt.sign({
+        _id: user._id
+      }, 'secret', {
+          expiresIn: '30d'
+      });
+      done(null, {...user, token})
+    })
 }
 ))
-app.get("/auth", passport.authenticate("google", { scope: ["profile"] }));
-app.get("/callback/url", passport.authenticate("google",{failureRedirect: "http://localhost:3000/login"}), (req,res) => {
+app.get("/auth", passport.authenticate("google", { scope: ["profile", "email"] }));
+app.get("/callback/url", passport.authenticate("google",{failureRedirect: "http://localhost:3000/login"}), (req: Request,res:Response) => {
+  
+  console.log(req.user,req.user._doc._id);
+  let {token} = req.user 
+  res.cookie("token", token)
+  res.cookie("_id", req.user._doc._id.toString())
   res.redirect("http://localhost:3000/home")
 })
-//----------------Authtication--------------------------------
-app.post('/register', bodyParser.json(), register)
-app.post('/login', bodyParser.json(), login)
-app.post('/getUser', bodyParser.json(), checkAuth, getUser)
-//----------------Authtication--------------------------------
 
 //---------------News-----------------------------------------
 app.post("/getNews", bodyParser.json(), getNews)
