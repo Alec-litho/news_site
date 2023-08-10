@@ -10,7 +10,7 @@ export default async function getUserInfo() {
         if(splitted[0]===" token")parameters.token = splitted[1]
         if(splitted[0]==="_id")parameters._id = splitted[1]
     })
-    if(parameters) {
+    if(parameters.token) {
         console.log(parameters);
         let promise = new Promise((resolve) => {
             resolve(dispatch(getUser(parameters)))
