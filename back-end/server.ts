@@ -13,6 +13,7 @@ import cookieParser from 'cookie-parser';
 import jwt from "jsonwebtoken";
 import {Request, Response} from "express";
 import session from "express-session";
+import { log } from "console";
 
 const CLIENT_ID = "1015608676012-0nddm7jredi2ecik5cd98ajqi8pn5jh4.apps.googleusercontent.com";
 const CLIENT_SECRET = "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";
@@ -38,15 +39,20 @@ app.post('/getUser', bodyParser.json(),/* checkAuth,*/ getUser)
 //----------------Authentication--------------------------------
 
 //----------------Google OAuth-------------------------------//
-// app.use(express.static("public"))
+app.use(express.static("public"))
 passport.serializeUser((user,done) => {
   done(null, user);
 });
-passport.deserializeUser((id:string, done) => {
-  UserModel.findById(id, (err,user) => {
-    done(err,user)
-  });
+passport.deserializeUser((user: Express.User, done) => {
+  console.log("id",user);
+  
+  UserModel.findById(user._doc._id).then((res) => {
+    console.log("result --- ",res);
+    if(res === undefined) done("error", user)
+    else done(null, user)
+  })
 });
+
 
 passport.use(new GoogleStrategy({
   clientID: CLIENT_ID,
@@ -57,6 +63,8 @@ passport.use(new GoogleStrategy({
 (accessToken, refreshToken, profile, done) => {
   UserModel.findOne({googleId: profile.id})
     .then((data) => {
+      console.log("data ----", data);
+      
       if(!data) {
         let user = new UserModel({
           googleId: profile.id,
@@ -73,6 +81,8 @@ passport.use(new GoogleStrategy({
     })
     .then(async() => {
       let user = await UserModel.findOne({googleId: profile.id})
+      console.log(user);
+      
       const token = jwt.sign({
         _id: user._id
       }, 'secret', {
@@ -84,8 +94,6 @@ passport.use(new GoogleStrategy({
 ))
 app.get("/auth", passport.authenticate("google", { scope: ["profile", "email"] }));
 app.get("/callback/url", passport.authenticate("google",{failureRedirect: "http://localhost:3000/login"}), (req: Request,res:Response) => {
-  
-  console.log(req.user,req.user._doc._id);
   let {token} = req.user 
   res.cookie("token", token)
   res.cookie("_id", req.user._doc._id.toString())

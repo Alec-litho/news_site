@@ -28,10 +28,12 @@ export default function Home({currencies}:InferGetStaticPropsType<typeof getServ
     if(typeof window!=="undefined") {
         let userData = useAppSelector((state)=> state.auth)
         getUserInfo().then((res) => {
+            console.log("server response",res);
+            
             userInfo.fullName = userData.fullName
             userInfo.description = userData.description
             userInfo.avatarUrl = userData.avatarUrl
-            userInfo.backgroundImg = userData.backgroundImg
+            userInfo.backgroundImg = userData.backgroundImg   
         })
     }
     console.log(userInfo);

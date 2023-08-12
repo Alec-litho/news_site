@@ -9,7 +9,6 @@ type IParameters = {
 }
 export function middleware(req:NextRequest) {
     return (async() => {
-            // const dispatch = useAppDispatch()
     let token = req.cookies.get("token")
     let _id = req.cookies.get("_id")
     let redirectUser = false
@@ -20,10 +19,10 @@ export function middleware(req:NextRequest) {
     cookiesStr.split(";").forEach((str) => {
         let splitted = str.split("=")
         if(splitted[0]==="token")parameters.token = splitted[1]
-        if(splitted[0]==="_id") parameters._id = splitted[1]
+        if(splitted[0]==="_id" || splitted[0]===" _id" ) parameters._id = splitted[1]
     })
-    console.log(parameters._id);
-    
+    console.log("parameters id", parameters._id);
+    if(parameters._id === null) return NextResponse.redirect(new URL('/login', req.url));
     let data = await fetch("http://localhost:3001/getUser", {
         method: "POST",
         headers: {
@@ -32,6 +31,9 @@ export function middleware(req:NextRequest) {
           },
         body: JSON.stringify({"_id": parameters._id.split(' ').join('')})//because _id somehow always has spacing
     })
+    let parsedData = await data.json()
+    console.log("data middleware", parsedData);
+    
     if(data === null) redirectUser = true
     console.log(redirectUser);
     

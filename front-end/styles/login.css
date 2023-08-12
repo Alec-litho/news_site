@@ -63,7 +63,7 @@
     background-color: rgb(170, 75, 37);
     color: rgb(238, 238, 238);
 }
-.line {
+.border .line {
     width: 195px;
     height: 2px;
     background-color: var(--icon-active);

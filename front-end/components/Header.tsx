@@ -2,6 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Nav, Container, FormControl, Navbar, NavbarBrand} from "react-bootstrap";
 import Link from 'next/link';
+import Image from 'next/image';
 import Bell from '../public/svg_icons/Bell';
 import Account from '../public/svg_icons/profile_menu/account.jsx';
 import Settings from '../public/svg_icons/profile_menu/settings.jsx';
@@ -44,7 +45,7 @@ export default function Header() {
                         </div>
                     </Nav> 
                 </Navbar.Collapse>
-                <Nav className="nav-tools d-flex align-items-center justify-content-between">
+                <Nav className="nav-tools d-flex align-items-center justify-content-between"> 
                         <Bell className="icon_A bell" />
                         <input className="search-box" placeholder='Search' ref={inputSearch}></input>
                         <Search  className="icon_A search" onClick={() =>console.log()/* dispatch(fetchNews)*/}></Search>

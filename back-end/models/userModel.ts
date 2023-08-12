@@ -1,6 +1,6 @@
 import mongoose, { Schema, Types } from 'mongoose';
 import findOrCreate from "mongoose-findorcreate";
- 
+import passportLocalMongoose from "passport-local-mongoose";
 
 const UserSchema = new Schema<UserType>({
     fullName: {

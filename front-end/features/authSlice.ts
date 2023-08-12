@@ -18,21 +18,24 @@ const initialState:Iauth = {
 
 export const fetchData = createAsyncThunk('auth/fetchAuth', async(params:ILogin) => {
     const data = await axios.post('http://localhost:3001/login', params)
-    
+    console.log(data.data._doc);
     const result:Iauth = {...data.data._doc, token: data.data.token}
     return result
 })
 export const getUser = createAsyncThunk("auth/getUserAuth", async({_id, token}:{_id:string,token:string}) => {
     
+    
     const data = await axios.post('http://localhost:3001/getUser', {"_id": _id.split(' ').join('')}, {//because _id somehow always has spacing
         headers: {
-            'content-type': 'text/json',
+            'content-type': 'application/json',
             'Authorization': `Bearer ${token}`
         }
         
     })
+    console.log("data ",data);
+    
     if(data.status === 404) return undefined
-    const result:Iauth = {...data.data._doc}
+    const result:Iauth = {...data.data}
     return result
 })
 
@@ -64,7 +67,9 @@ const authSlice = createSlice({
 
            })
            .addCase(getUser["fulfilled"], (state, action) => {//сделать рефакторинг чтобы не повторяться
-            if(action.payload===undefined) return undefined
+            if(action.payload===undefined) return undefined;
+            console.log(action.payload);
+            
             state._id = action.payload._id
             state.fullName = action.payload.fullName
             state.location = action.payload.location

@@ -69,13 +69,14 @@ const login = async(req: express.Request, res:express.Response ) => {
 
 const getUser = async(req: express.Request, res:express.Response ) => {
     const _id = req.body._id;
-    const result = await UserModel.findById({_id});
-    const {...userData} = result;
-    console.log("result ----------->   ",result);
-    result===null? res.json(result) : res.json({userData});
-
-
+    console.log("_id ---------", req.body);
     
+    if(_id === "null" || _id == undefined) res.json({message: "_id is null", value: null})
+    else {
+        const result = await UserModel.findById({_id});
+        console.log("result ----------->   ",result);
+        result===null? res.json({message: "user wasn't found", value:null}) : res.json(result);
+    }   
 }
 
 export {

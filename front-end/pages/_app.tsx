@@ -14,15 +14,9 @@ import Script from 'next/script'
 export default function App({Component, pageProps}) {
 
     return (
-        <>
-        <Head>
-            <title>News site</title>
-            <Script src="https://accounts.google.com/gsi/client" />
-        </Head>
         <Provider store={store}>
                 <Header/>
                 <Component {...pageProps}></Component>
             </Provider>
-        </>
     )
 } 
