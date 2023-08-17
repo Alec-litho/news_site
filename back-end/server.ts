@@ -41,13 +41,13 @@ app.post('/getUser', bodyParser.json(),/* checkAuth,*/ getUser)
 //----------------Google OAuth-------------------------------//
 app.use(express.static("public"))
 passport.serializeUser((user,done) => {
+  console.log("serialize user");
+  
   done(null, user);
 });
 passport.deserializeUser((user: Express.User, done) => {
-  console.log("id",user);
-  
   UserModel.findById(user._doc._id).then((res) => {
-    console.log("result --- ",res);
+    console.log("deserializeUser --- ",res);
     if(res === undefined) done("error", user)
     else done(null, user)
   })
@@ -62,8 +62,8 @@ passport.use(new GoogleStrategy({
 },
 (accessToken, refreshToken, profile, done) => {
   UserModel.findOne({googleId: profile.id})
-    .then((data) => {
-      console.log("data ----", data);
+    .then(async(data) => {
+      console.log("data ---->", data);
       
       if(!data) {
         let user = new UserModel({
@@ -76,24 +76,23 @@ passport.use(new GoogleStrategy({
           friends: 0,
           avatarUrl: profile._json.picture
         });
-        user.save()
+        await user.save();
       }
-    })
-    .then(async() => {
-      let user = await UserModel.findOne({googleId: profile.id})
-      console.log(user);
-      
+      let existUser = await UserModel.findOne({googleId: profile.id})
       const token = jwt.sign({
-        _id: user._id
-      }, 'secret', {
-          expiresIn: '30d'
-      });
-      done(null, {...user, token})
+        _id: existUser._id
+      }, 'secret', {expiresIn: '30d'});
+      done(null, {...existUser, token})
     })
 }
 ))
-app.get("/auth", passport.authenticate("google", { scope: ["profile", "email"] }));
+app.get("/auth", passport.authenticate("google", { scope: ["profile", "email"] }), (req,res) => {
+  console.log("auth");
+  
+});
 app.get("/callback/url", passport.authenticate("google",{failureRedirect: "http://localhost:3000/login"}), (req: Request,res:Response) => {
+  console.log("callback url");
+  
   let {token} = req.user 
   res.cookie("token", token)
   res.cookie("_id", req.user._doc._id.toString())

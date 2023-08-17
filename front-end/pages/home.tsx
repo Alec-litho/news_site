@@ -4,11 +4,13 @@ import NewsToolsComponent from '../components/NewsToolsComponent';
 import CurrencyComponent from "../components/CurrencyComponent";
 import NewsFeedComponent from '../components/NewsFeedComponent';
 import TopicsToolComponent from '../components/TopicsToolComponent';
+import ProfileComponent from '../components/ProfileComponent';
 import {useAppSelector} from '../hooks/reduxCustomHooks'
 //server components//
 import HeadLinesComponent from '../components/server_components/HeadLinesComponent';
 import { InferGetStaticPropsType, GetStaticProps } from 'next';
 import getUserInfo from '../helperFunctions/fetchUserInfo';
+
 
 export async function getServerSideProps() {
     // let currencies = await axios.get(`http://api.currencyapi.com/v3/latest?apikey=cur_live_nBRlzKBiDqzJCXAV40gWOfnC1BGU7FbRqJMhoIuE&currencies=EUR%2CUSD%2CCAD&base_currency=USD`)
@@ -20,21 +22,13 @@ export async function getServerSideProps() {
     // console.log(curs);
     
     // return {props: {currencies: curs}}
-    return {props: {currencies: "currencies"}}
+    return {props: {currencies: "currencies", userInfo:{}}}
 }
 
-export default function Home({currencies}:InferGetStaticPropsType<typeof getServerSideProps>) {
-    const userInfo = {fullName:"user",description:"...",avatarUrl: "https://i.ibb.co/Bqm8N2r/default-avatar-profile-trendy-style-social-media-user-icon-187599373.jpg",backgroundImg:"https://i.ibb.co/wrvWWtb/depositphotos-121012076-stock-illustration-blank-photo-icon.webp"}
+export default function Home({currencies, userInfo}:InferGetStaticPropsType<typeof getServerSideProps>) {
     if(typeof window!=="undefined") {
         let userData = useAppSelector((state)=> state.auth)
-        getUserInfo().then((res) => {
-            console.log("server response",res);
-            
-            userInfo.fullName = userData.fullName
-            userInfo.description = userData.description
-            userInfo.avatarUrl = userData.avatarUrl
-            userInfo.backgroundImg = userData.backgroundImg   
-        })
+        if(userData.logedIn === false) getUserInfo()
     }
     console.log(userInfo);
     
@@ -43,10 +37,7 @@ export default function Home({currencies}:InferGetStaticPropsType<typeof getServ
         <Container className="pt-5">
             <Row >
                 <Col lg={2} className="leftContainer">
-                    <div className="profile rounded py-3 px-3">
-                        <img className="rounded-circle w-25"></img>
-                        <h6>David O"Brien</h6>
-                    </div>
+                    {/* <ProfileComponent fullName={userInfo.fullName} avatarUrl={userInfo.avatarUrl}/> */}
                     <div className="mt-3 bg-white px-3 py-1">
                         {/* {JSON.parse(currencies).map((currencyData:Currencies, id:number) => {
                             let val = currencyData.value.toString().slice(0,4)

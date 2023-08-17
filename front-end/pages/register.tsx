@@ -3,7 +3,7 @@ import {useForm, SubmitHandler} from 'react-hook-form'
 import Image from 'next/image';
 import { MouseEvent, FocusEvent, FC, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxCustomHooks';
-import { fetchData } from '../features/authSlice';
+import { loginUser } from '../features/authSlice';
 import router from "next/router";
 import Email  from '../public/svg_icons/login/email' 
 import Lock  from '../public/svg_icons/login/lock' 
@@ -30,7 +30,7 @@ function Register() {
      } = useForm<IregisterForm>();
 
      const onSubmit: SubmitHandler<IregisterForm> =  (data) => {  
-        dispatch(fetchData(data)).then(() => router.push("home"))
+        dispatch(loginUser(data)).then(() => router.push("home"))
     }
 
     function changeIconColor(element:HTMLLabelElement ) {

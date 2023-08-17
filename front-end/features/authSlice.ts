@@ -16,15 +16,13 @@ const initialState:Iauth = {
 }
 
 
-export const fetchData = createAsyncThunk('auth/fetchAuth', async(params:ILogin) => {
+export const loginUser = createAsyncThunk('auth/loginUserAuth', async(params:ILogin) => {
     const data = await axios.post('http://localhost:3001/login', params)
-    console.log(data.data._doc);
     const result:Iauth = {...data.data._doc, token: data.data.token}
     return result
 })
 export const getUser = createAsyncThunk("auth/getUserAuth", async({_id, token}:{_id:string,token:string}) => {
-    
-    
+    console.log(_id);
     const data = await axios.post('http://localhost:3001/getUser', {"_id": _id.split(' ').join('')}, {//because _id somehow always has spacing
         headers: {
             'content-type': 'application/json',
@@ -32,9 +30,7 @@ export const getUser = createAsyncThunk("auth/getUserAuth", async({_id, token}:{
         }
         
     })
-    console.log("data ",data);
-    
-    if(data.status === 404) return undefined
+    if(data.status === 404) return undefined;
     const result:Iauth = {...data.data}
     return result
 })
@@ -49,7 +45,7 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-           .addCase(fetchData["fulfilled"], (state, action) => {
+           .addCase(loginUser["fulfilled"], (state, action) => {
             document.cookie = `_id=${action.payload._id}; path=/`;
             document.cookie = `token=${action.payload.token}; path=/`;
             state.logedIn = true;
@@ -62,21 +58,19 @@ const authSlice = createSlice({
             state.token = action.payload.token;
 
            })
-           .addCase(fetchData["rejected"], (state, action) => {
+           .addCase(loginUser["rejected"], (state, action) => {
             state.status = "rejected"
-
            })
            .addCase(getUser["fulfilled"], (state, action) => {//сделать рефакторинг чтобы не повторяться
-            if(action.payload===undefined) return undefined;
-            console.log(action.payload);
-            
-            state._id = action.payload._id
-            state.fullName = action.payload.fullName
-            state.location = action.payload.location
-            state.age = action.payload.age
-            state.avatarUrl = action.payload.avatarUrl
-            state.status = "fulfilled"
-            state.token = action.payload.token
+            if(action.payload===undefined) return action.payload;
+            state.logedIn = true;
+            state._id = action.payload._id;
+            state.fullName = action.payload.fullName;
+            state.location = action.payload.location;
+            state.age = action.payload.age;
+            state.avatarUrl = action.payload.avatarUrl;
+            state.status = "fulfilled";
+            state.token = action.payload.token;
            })
     }
 });

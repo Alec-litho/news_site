@@ -12,8 +12,6 @@ export function middleware(req:NextRequest) {
     let token = req.cookies.get("token")
     let _id = req.cookies.get("_id")
     let redirectUser = false
-    if(!req.cookies.has("_id"))  return NextResponse.redirect(new URL('/login', req.url))
-
     let parameters:IParameters={_id:"null",token:"null"};
     let cookiesStr = req.cookies.toString()
     cookiesStr.split(";").forEach((str) => {
@@ -21,8 +19,7 @@ export function middleware(req:NextRequest) {
         if(splitted[0]==="token")parameters.token = splitted[1]
         if(splitted[0]==="_id" || splitted[0]===" _id" ) parameters._id = splitted[1]
     })
-    console.log("parameters id", parameters._id);
-    if(parameters._id === null) return NextResponse.redirect(new URL('/login', req.url));
+    if(parameters._id === null || !req.cookies.has("_id")) return NextResponse.redirect(new URL('/login', req.url));
     let data = await fetch("http://localhost:3001/getUser", {
         method: "POST",
         headers: {
@@ -34,9 +31,7 @@ export function middleware(req:NextRequest) {
     let parsedData = await data.json()
     console.log("data middleware", parsedData);
     
-    if(data === null) redirectUser = true
-    console.log(redirectUser);
-    
+    if(!parsedData) redirectUser = true
     return redirectUser? NextResponse.redirect(new URL('/login', req.url)) : NextResponse.next()
 
     })()
@@ -45,17 +40,3 @@ export function middleware(req:NextRequest) {
 export const config = {
     matcher: '/home'
 }
-
-// let dayta = await fetch("http://localhost:3001/getUser", {
-//     method: "POST",
-//     headers: {
-//         'Content-Type': 'application/json',
-//         "Authorization": `Bearer ${parameters.token}`
-//       },
-//     body: JSON.stringify({"_id": parameters._id.split(' ').join('')})//because _id somehow always has spacing
-// })
-// .then(res => res.json()).then(res => {
-//     console.log(res === null);
-//     if(res === null) return NextResponse.redirect(new URL('/login', req.url))
-//     else return NextResponse.next();
-// })
