@@ -12,7 +12,7 @@ const data = [
 
 export default function NewsFeedComponent() {
     const newsInfo:ISearch = useAppSelector(state => state.search)
-    const [update, setUpdate] = useState<Boolean>(false)
+    const [update, setUpdate] = useState<Boolean>(false) 
     const dispatch = useAppDispatch()
     const getNews = useGetNews() /*getNews(set update function if needed)*/
 
