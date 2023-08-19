@@ -37,5 +37,5 @@ ADDITIONAL TECHNOLOGIES:
 - react-bootstrap: implements bootstrap with react components
 - react-dom: a package that provides DOM-specific methods that can be used at the top level of a web app to enable an efficient way of managing DOM elements of the web page
 - react-hook-form: library to manage forms
-
+- next-redux-wrapper: to synchronize the server and client redux states
 --------------------------------------------------------------------------------------------------------------------

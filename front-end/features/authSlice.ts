@@ -23,7 +23,7 @@ export const loginUser = createAsyncThunk('auth/loginUserAuth', async(params:ILo
 })
 export const getUser = createAsyncThunk("auth/getUserAuth", async({_id, token}:{_id:string,token:string}) => {
     console.log(_id);
-    const data = await axios.post('http://localhost:3001/getUser', {"_id": _id.split(' ').join('')}, {//because _id somehow always has spacing
+    const data = await axios.post('http://localhost:3001/getUser', {"_id": _id}, {
         headers: {
             'content-type': 'application/json',
             'Authorization': `Bearer ${token}`

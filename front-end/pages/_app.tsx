@@ -1,5 +1,5 @@
 import { Provider } from 'react-redux';
-import store from '../store/store'
+import {wrapper} from '../store/store'
 import Header from '../components/Header';
 import '../styles/login.css'
 import '../styles/Home.css'
@@ -10,8 +10,8 @@ import '../styles/globals.css'
 import '../styles/register.css'
 import  '../styles/components/ProfileComponentStyle.css'
 
-export default function App({Component, pageProps}) {
-
+function App({Component, ...pageProps}) {
+    const { store, props } = wrapper.useWrappedStore(pageProps);
     return (
         <Provider store={store}>
                 <Header/>
@@ -19,3 +19,5 @@ export default function App({Component, pageProps}) {
             </Provider>
     )
 } 
+
+export default App

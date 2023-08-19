@@ -5,14 +5,18 @@ import CurrencyComponent from "../components/CurrencyComponent";
 import NewsFeedComponent from '../components/NewsFeedComponent';
 import TopicsToolComponent from '../components/TopicsToolComponent';
 import ProfileComponent from '../components/ProfileComponent';
-import {useAppSelector} from '../hooks/reduxCustomHooks'
+import {useAppDispatch, useAppSelector} from '../hooks/reduxCustomHooks'
 //server components//
 import HeadLinesComponent from '../components/server_components/HeadLinesComponent';
-import { InferGetStaticPropsType, GetStaticProps } from 'next';
-import getUserInfo from '../helperFunctions/fetchUserInfo';
+import { InferGetStaticPropsType, GetStaticProps, GetServerSideProps } from 'next';
+import {wrapper} from '../store/store'
+import axios from 'axios';
+import parsedCookie from '../helperFunctions/parsedCookie';
+import { getUser } from '../features/authSlice';
 
-
-export async function getServerSideProps() {
+export const getServerSideProps = wrapper.getServerSideProps(store => async (ctx) => {//allows using redux with next.js
+    let parameters = parsedCookie(ctx.req.rawHeaders[11])
+    store.dispatch(getUser({...parameters}))
     // let currencies = await axios.get(`http://api.currencyapi.com/v3/latest?apikey=cur_live_nBRlzKBiDqzJCXAV40gWOfnC1BGU7FbRqJMhoIuE&currencies=EUR%2CUSD%2CCAD&base_currency=USD`)
     // let currenciesArr:Currencies[] = []
     // for (const currency in currencies.data.data) {
@@ -20,24 +24,23 @@ export async function getServerSideProps() {
     // }
     // let curs = JSON.stringify(currenciesArr)
     // console.log(curs);
+    let {auth} = store.getState()
+    console.log("auth   ",auth);
     
-    // return {props: {currencies: curs}}
-    return {props: {currencies: "currencies", userInfo:{}}}
-}
+    return {props: {currencies: "currencies", userInfo:auth}}
+})
 
-export default function Home({currencies, userInfo}:InferGetStaticPropsType<typeof getServerSideProps>) {
-    if(typeof window!=="undefined") {
-        let userData = useAppSelector((state)=> state.auth)
-        if(userData.logedIn === false) getUserInfo()
-    }
-    console.log(userInfo);
-    
+
+
+export default function Home(props:any) {
+    console.log(props.pageProps.userInfo);
+    let userData = {...props.pageProps.userInfo}
     return (
         <>
         <Container className="pt-5">
             <Row >
                 <Col lg={2} className="leftContainer">
-                    {/* <ProfileComponent fullName={userInfo.fullName} avatarUrl={userInfo.avatarUrl}/> */}
+                    <ProfileComponent fullName={userData.fullName} avatarUrl={userData.avatarUrl}/>
                     <div className="mt-3 bg-white px-3 py-1">
                         {/* {JSON.parse(currencies).map((currencyData:Currencies, id:number) => {
                             let val = currencyData.value.toString().slice(0,4)
@@ -66,3 +69,4 @@ export default function Home({currencies, userInfo}:InferGetStaticPropsType<type
         
         )
 }
+

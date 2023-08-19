@@ -11,6 +11,9 @@ import { fetchNews, setSearchInfo } from '../features/searchSlice';
 import {useEffect, useRef,useState} from 'react';
 import useRefresh from '../hooks/useRefresh';
 import { useAppDispatch, useAppSelector } from '../hooks/reduxCustomHooks';
+import getUserInfo from "../helperFunctions/fetchUserInfo";
+
+
 
 export default function Header() {
     let refresh = useRefresh()
@@ -19,6 +22,8 @@ export default function Header() {
     let sideBarMenu = useRef<HTMLDivElement>(null!)
     let authData = useAppSelector(state => state.auth)
     let [showSidebar, setShowSidebar] = useState(false)
+        let userData = useAppSelector((state)=> state.auth)
+        if(userData.logedIn === false) getUserInfo()
     if(authData._id === null) return <div></div>
 
     return (
