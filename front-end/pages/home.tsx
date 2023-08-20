@@ -39,7 +39,7 @@ export default function Home(props:any) {
         <>
         <Container className="pt-5">
             <Row >
-                <Col lg={2} className="leftContainer">
+                <Col xl={2} className="leftContainer">
                     <ProfileComponent fullName={userData.fullName} avatarUrl={userData.avatarUrl}/>
                     <div className="mt-3 bg-white px-3 py-1">
                         {/* {JSON.parse(currencies).map((currencyData:Currencies, id:number) => {
@@ -53,12 +53,12 @@ export default function Home(props:any) {
                     <NewsToolsComponent/>
                     <TopicsToolComponent/>
                 </Col>
-                <Col lg={7} >
+                <Col xl={7} md={9}>
                     <Container>
                         <NewsFeedComponent/>
                     </Container>
                 </Col>
-                <Col lg={3} className="rightContainer">
+                <Col xl={3} md={3} className="rightContainer">
                     <Container>
                         <HeadLinesComponent/>
                     </Container>

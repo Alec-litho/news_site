@@ -8,7 +8,8 @@ import '../styles/Home.module.css'
 import '../styles/Header.css'
 import '../styles/globals.css'
 import '../styles/register.css'
-import  '../styles/components/ProfileComponentStyle.css'
+import  '../styles/components/ProfileComp-style.css'
+import '../styles/components/NewsToolsComp-style.css'
 
 function App({Component, ...pageProps}) {
     const { store, props } = wrapper.useWrappedStore(pageProps);

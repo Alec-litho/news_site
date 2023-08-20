@@ -18,7 +18,7 @@
 }
 
 .navigation {
-    width: 300px;
+    width: 50%;
 }
 
 .link {
@@ -35,9 +35,14 @@
     width: 100%;
     border-bottom: 3px solid rgb(231, 105, 31);
 }
+.search-box-parent {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+}
 .search-box {
     outline: none;
-    width: 65%;
+    width: 80%;
     height: 35px;
     background-color: rgb(236, 236, 236);
     border: none;
@@ -45,7 +50,7 @@
 }
 .search-box::placeholder {
     color: rgb(153, 153, 153);
-    padding-left: 50px;
+    padding-left: 35px;
     font-size: 18px;
     font-weight: 500;
 }
@@ -58,7 +63,8 @@
 .icon_A.search {
     fill: rgb(153, 153, 153);
     position: absolute;
-    left: 70px;
+    top: 20%;
+    left: 38px;
     height: 20px;
     width: 20px;
 
@@ -70,6 +76,9 @@
     height: 50px;
     object-fit: cover;
 }
+.sidebar-menu-parent {
+    position: relative;
+}
 .sidebar-menu {
     z-index: 99;
     display: none;
@@ -78,17 +87,18 @@
     transition: .3s;
     position: absolute;
     padding: 10px 5px;
-    width: 350px;
+    min-width: 200px;
+    box-shadow: 1px 11px 20px rgba(109, 109, 109, 0.336)
 }
 .sidebar-menu.show {
     display:flex;
     top: 100px;
-    left: 300px;
+    left: -300%;
 }
 .sidebar-menu.show.active {
     display: flex;
     top: 60px;
-    left: 300px;
+    left: -300%;
 }
 .menu-option {
     padding-bottom: 5px;
@@ -105,4 +115,56 @@
 .sidebar-menu .icon_A {
     transition: .2s;
     fill: rgb(116, 116, 116);
+}
+
+@media (max-width: 1200px) {
+    .navigation {
+        width: 60%;
+    }
+    .nav-tools {
+        width: 220px;
+    }
+    .search-box {
+        width: 80%;
+    }
+    .search-box::placeholder {
+        padding-left: 28px;
+    }
+    .icon_A.search {
+        left: 24px;
+    }
+
+
+}
+
+@media (max-width: 1090px) {
+    .navigation {
+        width: 60%;
+    }
+    .bell {display: none;}
+
+}
+@media (max-width: 990px) {
+    .navigation {
+        width: 80%;
+    }
+}
+@media (max-width: 765px) {
+    .collapse {
+        display: none;
+    }
+    .logo {
+        width: 10%;
+    }
+    .search-box-parent {
+        display: none;
+    }
+    .sidebar-menu-parent{
+        width: 50%;
+    }
+    .nav-tools {
+        position: relative;
+        z-index: 101;
+        width: 80%;
+    }
 }
