@@ -2,6 +2,7 @@ import { useAppDispatch } from "./hooks/reduxCustomHooks";
 import { getUser } from "./features/authSlice";
 import type { NextFetchEvent, NextRequest } from "next/server";
 import { NextResponse } from "next/server";
+import parsedCookie from "./helperFunctions/parsedCookie";
 
 type IParameters = {
     _id: string 
@@ -12,13 +13,9 @@ export function middleware(req:NextRequest) {
     let token = req.cookies.get("token")
     let _id = req.cookies.get("_id")
     let redirectUser = false
-    let parameters:IParameters={_id:"null",token:"null"};
-    let cookiesStr = req.cookies.toString()
-    cookiesStr.split(";").forEach((str) => {
-        let splitted = str.split("=")
-        if(splitted[0]==="token")parameters.token = splitted[1]
-        if(splitted[0]==="_id" || splitted[0]===" _id" ) parameters._id = splitted[1]
-    })
+    let parameters:IParameters=parsedCookie(req.cookies.toString());
+    console.log("parammsp",parameters);
+    
     if(parameters._id === null || !req.cookies.has("_id")) return NextResponse.redirect(new URL('/login', req.url));
     let data = await fetch("http://localhost:3001/getUser", {
         method: "POST",

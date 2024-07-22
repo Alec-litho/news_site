@@ -1,0 +1,42 @@
+.category {
+    padding: 20px 10px;
+    box-shadow: 2px 2px 12px rgba(109, 109, 109, 0.336);
+    background-color: white;
+    width: 100%;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.bg-circle-icon {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    background-color: var(--icon-active);
+}
+.bg-circle-icon .icon_A {
+    position: absolute;
+    fill: white;
+}
+.category-option {
+    transition: .3s;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.category-option a {
+    text-align: left;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(87, 87, 87);
+}
+.category-option.active .bg-circle-icon{
+    border-radius: 10px;
+    width: 200px;
+    
+}
